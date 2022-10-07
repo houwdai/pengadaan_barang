@@ -3,60 +3,47 @@
     <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 }
 @{
-    ViewData["Title"] = "Kabag | Homepage";
+    ViewData["Title"] = "Kabag | Barang";
     Layout = "_LayoutKabag";
 
 }
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#staticBackdrop">
-  Buat Permohonan Pengadaan Barang
-</button>
-
-
-
- <div class="card shadow mb-4">
+ <div class="card shadow mb-4" mt-4>
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Daftar Pengajuan Barang</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Daftar Barang</h6>
     </div>
-     <div class="card-body">
-         <table id="dataTable" class="table table-bordered table-striped">
+    
+        <!-- Button trigger modal insert -->
+        <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#staticBackdrop">
+         Tambah Data Barang
+        </button>
+
+     <div class="card-body ">
+         <table  class="table table-bordered table-striped"  id="dataTable1">
             <thead>
                 <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Produk</th>
-                    <th scope="col">Satuan</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Detail</th>
-                    <th scope="col">Status</th>
+                     <th scope="col">No</th>
+                    <th scope="col">Barang</th>
+                    <th scope="col">Stok</th>
                 </tr>
             </thead>
             <tbody >
                 <tr>
                     <td scope="col">1</td>
                     <td scope="col">Pulpen</td>
-                    <td scope="col">Lusin</td>
-                    <td scope="col">13000</td>
-                    <td scope="col">
-                        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#detail">
-                           Detail
-                        </button>
-                     </th>
-                    <td scope="col">Awaiting</th>
+                    <td scope="col">2</td>
                 </tr>
             </tbody>
            </table>
     </div>
 </div>
 
-
-
-<!-- Modal Insert -->
+<!-- Modal Insert Barang-->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Buat Permohonan</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Tambah Barang</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -64,8 +51,8 @@
       <div class="modal-body">
         <form method = "POST">
           <div class="form-group">
-            <label for="departemen">Departemen</label>
-            <input type="text" class="form-control" id="departemen">
+            <label for="id">ID Barang</label>
+            <input type="text" class="form-control" id="id_barang" disabled>
           </div>
           <div class="form-group">
             <label for="nama_barang">Nama Barang</label>
@@ -82,6 +69,14 @@
           <div class="form-group">
             <label for="harga">Harga</label>
             <input type="number" class="form-control" id="harga">
+          </div> 
+          <div class="form-group">
+            <label for="Supllier">Supplier</label>
+            <select id="id_supplier" class="form-control">
+                <option selected>PT. A</option>
+                <option>PT. B</option>
+                <option>PT. C</option>
+              </select>
           </div>
           <button type="submit" class="btn btn-primary" onclick = "insert()">Kirim</button>
         </form>
@@ -89,31 +84,10 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
+
     </div>
   </div>
 </div>
-
-<!-- Modal Deatil-->
-<div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Detail Pengajuan</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-            
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 @section Scripts{
 

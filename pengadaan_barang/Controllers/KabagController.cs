@@ -10,6 +10,13 @@ namespace pengadaan_barang.Controllers
         {
             return View();
         }
+               
+        
+        // GET: KabagController
+        public ActionResult Barang()
+        {
+            return View();
+        }
 
         // GET: KabagController/Details/5
         public ActionResult Details(int id)
