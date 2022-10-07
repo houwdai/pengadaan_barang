@@ -1,4 +1,8 @@
-﻿@{
+﻿@section CSS{
+     <!-- Custom styles for this page -->
+    <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+}
+@{
     ViewData["Title"] = "Manager | Homepage";
     Layout = "_LayoutMan";
 
@@ -9,7 +13,7 @@
         <h6 class="m-0 font-weight-bold text-primary">Butuh Tindakan</h6>
     </div>
      <div class="card-body">
-         <table id="example1" class="table table-bordered table-striped">
+         <table id="dataTable" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th scope="col">No</th>
@@ -64,3 +68,16 @@
     </div>
   </div>
 </div>
+
+@section Scripts{
+
+        <!-- Page level plugins -->
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+        <!-- Page level custom scripts -->
+    <script src="~/js/demo/datatables-demo.js"></script>
+
+
+
+
+}
