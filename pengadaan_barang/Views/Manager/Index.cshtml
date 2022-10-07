@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Manager | Homepage";
+    Layout = "_LayoutMan";
+
+}
+
+ <div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Butuh Tindakan</h6>
+    </div>
+     <div class="card-body">
+         <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Produk</th>
+                    <th scope="col">Satuan</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Detail</th>
+                    <th scope="col">Tindakan</th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr>
+                    <td scope="col">1</td>
+                    <td scope="col">Pulpen</td>
+                    <td scope="col">Lusin</td>
+                    <td scope="col">13000</td>
+                    <td scope="col">
+                        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#detail">
+                           Detail
+                        </button>
+                     </td>
+                    <td scope="col">
+                       @*  <a class="btn btn-primary" type="button" // asp-action="Terima" asp-route-id="@item.id">Terima</a>
+                        <a class="btn btn-primary" type="button"  asp-action="Tolak" asp-route-id="@item.id">Tolak</a>     *@ 
+                        <a class="btn btn-primary" type="button">Terima</a>
+                        <a class="btn btn-primary" type="button" >Tolak</a>    
+                    </td>
+                    
+                </tr>
+            </tbody>
+           </table>
+    </div>
+</div>
+
+                       <!-- Modal Deatil-->
+<div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detail Pengajuan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
