@@ -2,6 +2,7 @@
      <!-- Custom styles for this page -->
     <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 }
+    @model IEnumerable<Client.Models.Product>
 @{
     ViewData["Title"] = "Kabag | Barang";
     Layout = "_LayoutKabag";
@@ -24,15 +25,27 @@
                 <tr>
                      <th scope="col">No</th>
                     <th scope="col">Barang</th>
-                    <th scope="col">Stok</th>
+                    <th scope="col">Supplier</th>
                 </tr>
             </thead>
             <tbody >
-                <tr>
-                    <td scope="col">1</td>
-                    <td scope="col">Pulpen</td>
-                    <td scope="col">2</td>
-                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NamaProduk)
+                        </td>  
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdSupplierNavigation.Nama)
+                        </td>
+
+                        
+                    </tr>
+                }
             </tbody>
            </table>
     </div>

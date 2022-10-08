@@ -1,10 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Client.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Client.Controllers
 {
     public class KabagController : Controller
     {
+        DTSMiniProjectContext myContext;
+        public KabagController(DTSMiniProjectContext myContext)
+        {
+            this.myContext = myContext;
+        }
         // GET: KabagController
         public ActionResult Index()
         {
@@ -15,7 +23,8 @@ namespace Client.Controllers
         // GET: KabagController
         public ActionResult Barang()
         {
-            return View();
+            var data = myContext.Product.Include(x => x.IdSupplierNavigation).ToList();
+            return View(data);
         }
 
         // GET: KabagController/Details/5
