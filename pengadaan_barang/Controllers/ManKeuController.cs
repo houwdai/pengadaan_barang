@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace pengadaan_barang.Controllers
+namespace Client.Controllers
 {
     public class ManKeuController : Controller
     {

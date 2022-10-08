@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using pengadaan_barang.Models;
-using System;
-using System.Collections.Generic;
+using Client.Models;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace pengadaan_barang.Controllers
+namespace Client.Controllers
 {
     public class HomeController : Controller
     {

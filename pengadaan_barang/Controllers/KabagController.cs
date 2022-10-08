@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace pengadaan_barang.Controllers
+namespace Client.Controllers
 {
     public class KabagController : Controller
     {
@@ -10,8 +10,8 @@ namespace pengadaan_barang.Controllers
         {
             return View();
         }
-               
-        
+
+
         // GET: KabagController
         public ActionResult Barang()
         {
