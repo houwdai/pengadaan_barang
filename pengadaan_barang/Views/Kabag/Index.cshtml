@@ -2,6 +2,7 @@
      <!-- Custom styles for this page -->
     <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 }
+    @model IEnumerable<Client.Models.Pengadaan>
 @{
     ViewData["Title"] = "Kabag | Homepage";
     Layout = "_LayoutKabag";
@@ -9,11 +10,11 @@
 }
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#staticBackdrop">
-  Buat Permohonan Pengadaan Barang
-</button>
-
-
+<a asp-action="CreateSPB">
+    <button type="button" class="btn btn-primary ml-4 mt-2 mb-4">
+        Buat Permohonan Pengadaan Barang
+    </button>
+</a>
 
  <div class="card shadow mb-4">
     <div class="card-header py-3">
@@ -25,25 +26,142 @@
                 <tr>
                     <th scope="col">No</th>
                     <th scope="col">Produk</th>
-                    <th scope="col">Satuan</th>
+                    <th scope="col">Supplier</th>
+                    <th scope="col">Kuantitas</th>
                     <th scope="col">Total</th>
-                    <th scope="col">Detail</th>
+                    <th scope="col">Divisi</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody >
-                <tr>
-                    <td scope="col">1</td>
-                    <td scope="col">Pulpen</td>
-                    <td scope="col">Lusin</td>
-                    <td scope="col">13000</td>
-                    <td scope="col">
-                        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#detail">
-                           Detail
-                        </button>
-                     </td>
-                    <td scope="col">Awaiting</td>
-                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdBarangNavigation.NamaProduk)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdSupplierNavigation.Nama)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Kuantitas)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Totals)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdDivisiNavigation.Nama) 
+                            @*harusnya gausah pake*@
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdStatusNavigation.Name)
+                        </td>
+
+
+                        <td>
+                            @if(item.IdStatus == 1){
+                            <a type="button" class="btn btn-info btn-sm" asp-action="EditSPB" asp-route-id="@item.Id">Edit</a>
+                                <a type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail">Details</a>
+
+                                <a type="button" class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#hapus">Delete</a>
+                                <!-- Modal Hapus Data -->
+                                <div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form >
+                                                <div class="modal-body">
+                                                    <p>Apakah anda yakin ingin menghapus data ?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary" asp-action="DeleteSPB" asp-route-id="@item.Id">Yes</button>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (item.IdStatus != 1)
+                            {
+                                <a type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#detail">Details</a>
+                            }
+                            <!-- Modal Detail Data -->
+                            <div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Detail SPD</h5>
+
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Informasi Barang</p>
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Nama Barang</th>
+                                                        <th scope="col">Supplier</th>
+                                                        <th scope="col">Harga Satuan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>@item.IdBarangNavigation.NamaProduk</td>
+                                                        <td>@item.IdSupplierNavigation.Nama</td>
+                                                        <td>@item.IdBarangNavigation.HargaProduct</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <p>Informasi Supplier</p>
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">No</th>
+                                                        <th scope="col">Nama Supplier</th>
+                                                        <th scope="col">Alamat</th>
+                                                        <th scope="col">Kota</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>@item.IdSupplierNavigation.Nama</td>
+                                                        <td>@item.IdSupplierNavigation.Alamat</td>
+                                                        <td>@item.IdSupplierNavigation.Kota</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </td>
+
+
+                    </tr>
+                }
             </tbody>
            </table>
     </div>
@@ -51,47 +169,54 @@
 
 
 
-<!-- Modal Insert -->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Buat Permohonan</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form method = "POST">
-          <div class="form-group">
-            <label for="departemen">Departemen</label>
-            <input type="text" class="form-control" id="departemen">
-          </div>
-          <div class="form-group">
-            <label for="nama_barang">Nama Barang</label>
-            <input type="text" class="form-control" id="nama_barang">
-          </div>
-           <div class="form-group">
-              <label for="satuan">Satuan</label>
-              <select id="satuan" class="form-control">
-                <option selected>pcs</option>
-                <option>rim</option>
-                <option>kodi</option>
-              </select>
+@*<!-- Modal Pengajuan Barang X ga jadi, pindah ke halaman baru Create SPB-->
+<div class="modal fade" id="pengajuan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Buat Pengajuan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-          <div class="form-group">
-            <label for="harga">Harga</label>
-            <input type="number" class="form-control" id="harga">
-          </div>
-          <button type="submit" class="btn btn-primary" onclick = "insert()">Kirim</button>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+            <div class="modal-body">
+                <form asp-action="CreateSPB">
+                    <div class="form-group">
+                        <label for="divisi"> ID</label>
+                        <input asp-for="@Model.pengadaan.Id" type="text" disabled class="form-control" id="id" aria-describedby="emailHelp" >
+                    </div>
+                    <div class="form-group">
+                        <label for="divisi"> Nama Divisi</label>
+                        <input asp-for="@Model.pengadaan.IdDivisi" type="text" disabled class="form-control" id="id" aria-describedby="emailHelp" asp-value ="1">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="divisi"> Pilih Barang</label>
+                        <select asp-for="@Model.pengadaan.IdBarang" class="form-control" asp-items="@Model.Produck"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="supplier"> Pilih Supplier</label>
+                        <select asp-for="@Model.pengadaan.IdSupplier" class="form-control" asp-items="@Model.Supplier"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="divisi"> Kuantitas</label>
+                        <input asp-for="pengadaan.Kuantitas" type="number" class="form-control" id="kuantitas" aria-describedby="emailHelp">
+                    </div>
+                   
+                    <div class="form-group">
+                        <input asp-for="@Model.pengadaan.IdStatus" type="hidden" value="1" class="form-control" id="id" aria-describedby="emailHelp">
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary" value="CreateData">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+</div>*@
 
 <!-- Modal Deatil-->
 <div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

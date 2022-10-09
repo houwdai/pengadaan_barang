@@ -1,7 +1,10 @@
 ﻿using Client.Models;
+using Client.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Client.Controllers
@@ -13,28 +16,79 @@ namespace Client.Controllers
         {
             this.myContext = myContext;
         }
-        // GET: KabagController
+        // GET: KabagController -- ALL data Pengajuan Pengadaan
         public ActionResult Index()
         {
+            var data = myContext.Pengadaan.Include(x => x.IdSupplierNavigation).
+                Include(y => y.IdBarangNavigation).
+                Include(z => z.IdStatusNavigation).
+                Include(p => p.IdDivisiNavigation)
+                .ToList();
+
+            return View(data) ;
+        }
+        // GET: KabagController/CreateSPB 
+        public ActionResult CreateSPB()
+        {
+            ViewModel vm = new ViewModel();
+            List<SelectListItem> Product = myContext.Product
+                .OrderBy(n => n.NamaProduk)
+                .Select(n => new SelectListItem
+                {
+                    Value = n.Id.ToString(),
+                    Text = n.NamaProduk.ToString()
+                }).ToList();
+            vm.Produck = Product;
+            List<SelectListItem> Supplier = myContext.Supplier
+                .OrderBy(n => n.Nama)
+                .Select(n => new SelectListItem
+                {
+                    Value = n.Id.ToString(),
+                    Text = n.Nama.ToString()
+                }).ToList();
+            vm.Supplier = Supplier;
+            return View(vm);
+        }
+
+        // POST: KabagController/CreateSPB
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateSPB(Pengadaan pengadaan)
+        {
+            if (ModelState.IsValid)
+            {
+                myContext.Pengadaan.Add(pengadaan);
+                var result = myContext.SaveChanges();
+                if (result > 0)
+                    return RedirectToAction("Index");
+            }
             return View();
+
+        }
+        // GET: KabagController/DeleteSPB
+
+        [HttpGet("Kabag/DeleteSPB/{id:int}")]
+        public IActionResult DeleteSPB(int id)
+        {
+            var pengadaan = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
+            myContext.Pengadaan.Remove(pengadaan);
+            myContext.SaveChanges();
+            return RedirectToAction("Index");
         }
 
 
+
+
+        //---==== Barang ====---
         // GET: KabagController
         public ActionResult Barang()
         {
-            var data = myContext.Product.Include(x => x.IdSupplierNavigation).ToList();
+            var data = myContext.Product.Include(x => x.IdSupplierNavigation).Include(y => y.IdSatuanNavigation).ToList();
+           
             return View(data);
         }
-
-        // GET: KabagController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: KabagController/Create
-        public ActionResult Create()
+        // GET: KabagController/CreateBarang
+        public ActionResult CreateBarang()
         {
             return View();
         }
@@ -42,17 +96,36 @@ namespace Client.Controllers
         // POST: KabagController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult CreateBarang(Product product)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                myContext.Product.Add(product);
+                var result = myContext.SaveChanges();
+                if (result > 0)
+                    return RedirectToAction("Barang");
             }
-            catch
-            {
-                return View();
-            }
+            return View();
+            
         }
+
+        // GET: KabagController/DeleteSPB
+
+        [HttpGet("Kabag/DeleteBarang/{id:int}")]
+        public IActionResult DeleteBarang(int id)
+        {
+            var delprod = myContext.Product.Where(a => a.Id == id).FirstOrDefault();
+            myContext.Product.Remove(delprod);
+            myContext.SaveChanges();
+            return RedirectToAction("Barang");
+        }
+        // GET: KabagController/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+
+     
 
         // GET: KabagController/Edit/5
         public ActionResult Edit(int id)

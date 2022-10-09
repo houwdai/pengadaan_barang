@@ -14,10 +14,19 @@
         <h6 class="m-0 font-weight-bold text-primary">Daftar Barang</h6>
     </div>
     
-        <!-- Button trigger modal insert -->
-        <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#staticBackdrop">
+        <!-- Button trigger modal insert gajadi, grgr dalam satu layout cuman bisa make 1 model aja -->
+@*        <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#staticBackdrop">
          Tambah Data Barang
-        </button>
+        </button>*@
+        <!-- Button trigger modal insert -->
+        <a asp-action="CreateBarang">
+            <div>
+            <button type="button" class="btn btn-primary ml-4 mt-2 mb-2">
+                Tambah Data Barang
+            </button>
+            </div>
+        </a>
+
 
      <div class="card-body ">
          <table  class="table table-bordered table-striped"  id="dataTable1">
@@ -25,7 +34,12 @@
                 <tr>
                      <th scope="col">No</th>
                     <th scope="col">Barang</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Satuan</th>
+                    <th scope="col">Harga</th>
                     <th scope="col">Supplier</th>
+                    <th scope="col">Action</th>
+
                 </tr>
             </thead>
             <tbody >
@@ -39,11 +53,48 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.NamaProduk)
                         </td>  
+                         <td>
+                            @Html.DisplayFor(modelItem => item.StockProduct)
+                        </td>
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdSatuanNavigation.Nama)
+                        </td>  
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HargaProduct)
+                        </td>
+                         
                         <td>
                             @Html.DisplayFor(modelItem => item.IdSupplierNavigation.Nama)
                         </td>
+                        <td>
+                            <a type="button" class="btn btn-info btn-sm" asp-action="EditSPB" asp-route-id="@item.Id">Edit</a>
+                            <a type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapus">Delete</a>
+                            <!-- Modal Hapus Data -->
+                            <div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
 
-                        
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form>
+                                            <div class="modal-body">
+                                                <p>Apakah anda yakin ingin menghapus data ?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary" asp-action="DeleteBarang" asp-route-id="@item.Id">Yes</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 }
             </tbody>
