@@ -23,37 +23,38 @@
         <div class="row">
             <div class="col">
                 <div class="text-justify">
-                    <h1 class="display-4">Welcome</h1>
+                    <h1 class="display-4">Register</h1>
                     <p>
-                        Selamat datang di Portal Pengajuan Pengadaan Barang.<br /> Silahkan masukkan Username dan Password anda
+                        Belum punya akun?<br /> Silahkan lengkapi form berikut:
                     </p>
                 </div>
                 <div class="align-items-center">
-                    <form asp-action="Login">
+                    <form asp-action="Register">
+                        <div class="form-group">
+                            <label for="fullName">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="fullName" name="fullName">
+                        </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control" id="email" aria-describedby="emailHelp">
+                            <input type="text" class="form-control" id="email" name="email">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password">
+                            <input type="password" class="form-control" id="password" name="password">
                         </div>
-                        @*<div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div>*@
-                        <button type="submit" id="Login" class="btn btn-primary">Login</button>
+                        <div class="form-group">
+                            <label for="roleId">Role Id</label>
+                            <input type="number" class="form-control" id="roleId" name="roleId">
+                        </div>
+                        <button type="submit" id="Login" class="btn btn-primary">Register</button>
+                        <div id="login" class="form-text"> <a asp-controller="Account" asp-action="Login">Sudah punya Akun ?</a></div>
                     </form>
                 </div>
             </div>
             <div class="col">
-                <img style="height: 500px" src="https://images.pexels.com/photos/3316924/pexels-photo-3316924.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+                <img style="height: 500px" src="https://img.freepik.com/premium-vector/online-registration-sign-up-concept-with-man-character_268404-98.jpg" />
             </div>
         </div>
-        </div>
-
-        <script src="~/vendor/jquery/jquery.min.js"></script>
-        <script src="~/js/Login.js"></script>
-
+    </div>
 </body>
 </html>

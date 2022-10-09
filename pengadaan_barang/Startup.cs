@@ -28,6 +28,12 @@ namespace Client
             services.AddDbContext<Models.DTSMiniProjectContext>(options =>
                options.UseSqlServer(
                    Configuration.GetConnectionString("MyConnection")));
+            services.AddSession(option =>
+            {
+                option.IdleTimeout = TimeSpan.FromMinutes(5);
+                option.Cookie.HttpOnly = true;
+                option.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,12 +55,13 @@ namespace Client
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Kabag}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }

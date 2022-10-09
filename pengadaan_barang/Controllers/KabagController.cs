@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 
 namespace Client.Controllers
 {
     public class KabagController : Controller
     {
         DTSMiniProjectContext myContext;
+
         public KabagController(DTSMiniProjectContext myContext)
         {
             this.myContext = myContext;
@@ -19,13 +21,18 @@ namespace Client.Controllers
         // GET: KabagController -- ALL data Pengajuan Pengadaan
         public ActionResult Index()
         {
-            var data = myContext.Pengadaan.Include(x => x.IdSupplierNavigation).
-                Include(y => y.IdBarangNavigation).
-                Include(z => z.IdStatusNavigation).
-                Include(p => p.IdDivisiNavigation)
-                .ToList();
+            var role = HttpContext.Session.GetString("Role");
+            if (role.Equals("Kepala Bagian Produksi"))
+            {
+                var data = myContext.Pengadaan.Include(x => x.IdSupplierNavigation).
+                    Include(y => y.IdBarangNavigation).
+                    Include(z => z.IdStatusNavigation).
+                    Include(p => p.IdDivisiNavigation)
+                    .ToList();
 
-            return View(data) ;
+                return View(data);
+            }
+            return RedirectToAction("Unauthorized", "ErrorPage");
         }
         // GET: KabagController/CreateSPB 
         public ActionResult CreateSPB()

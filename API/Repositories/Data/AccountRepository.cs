@@ -43,7 +43,7 @@ namespace API.Repositories.Data
             {
                 fullName = register.fullName,
                 email = register.email,
-                password = register.password,
+                password = HashPassword(register.password),
                 RoleId = register.roleId
             };
             myContext.User.Add(user);
@@ -55,7 +55,7 @@ namespace API.Repositories.Data
                     id = user.id,
                     fullName = register.fullName,
                     email = register.email,
-                    password = HashPassword(register.password),
+                    password = register.password,
                     roleId = register.roleId
                 };
                 return response;
