@@ -33,8 +33,8 @@ namespace Client.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet("Tolak/{id:int}")]
-        public ActionResult Tolak(int id)
+        [HttpGet("Tolakk/{id:int}")]
+        public ActionResult Tolakk(int id)
         {
             var spb = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
             spb.IdStatus = 5;
@@ -43,6 +43,16 @@ namespace Client.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Manager
+        public ActionResult Riwayat()
+        {
+            int status_waiting = 1;
+            var data = myContext.Pengadaan.Where(q => q.IdStatus != status_waiting).Include(z => z.IdBarangNavigation).
+                Include(x => x.IdSupplierNavigation).Include(y => y.IdDivisiNavigation).
+                Include(p => p.IdStatusNavigation).ToList();
+
+            return View(data);
+        }
 
         // GET: Manager/Details/5
         public ActionResult Details(int id)
