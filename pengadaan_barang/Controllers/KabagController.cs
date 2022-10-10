@@ -18,6 +18,8 @@ namespace Client.Controllers
         {
             this.myContext = myContext;
         }
+
+
         // GET: KabagController -- ALL data Pengajuan Pengadaan
         public ActionResult Index()
         {
@@ -83,6 +85,55 @@ namespace Client.Controllers
             return RedirectToAction("Index");
         }
 
+        //GET: KabagController/EditSPB
+        [HttpGet("Kabag/EditSPB/{id:int}")]
+        public IActionResult EditSPB(int id)
+        {
+            ViewModel viewModel = new ViewModel();
+            viewModel.pengadaan = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
+
+            List<SelectListItem> product = myContext.Product
+                .OrderBy(n => n.NamaProduk)
+                .Select(n => new SelectListItem
+                {
+                    Value = n.Id.ToString(),
+                    Text = n.NamaProduk
+                }).ToList();
+            viewModel.Produck = product;
+
+            List<SelectListItem> supplier = myContext.Supplier
+                .OrderBy(n => n.Nama)
+                .Select(n => new SelectListItem
+                {
+                    Value = n.Id.ToString(),
+                    Text = n.Nama
+                }).ToList();
+            viewModel.Supplier = supplier;
+
+            return View(viewModel);
+        }
+        //POST: KabagController/EditSPB
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditSPB(int id, Pengadaan pengadaan)
+        {
+            if (ModelState.IsValid)
+            {
+                var data = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
+
+                if (data != null)
+                {
+                    //data.IdBarang = pengadaan.IdBarang;
+                    data.IdSupplier = pengadaan.IdSupplier;
+                    data.Kuantitas = pengadaan.Kuantitas;
+                }
+                myContext.Pengadaan.Update(data);
+                var result = myContext.SaveChanges();
+                if (result > 0)
+                    return RedirectToAction("Index");
+            }
+            return View();
+        }
 
 
 
@@ -131,8 +182,6 @@ namespace Client.Controllers
         {
             return View();
         }
-
-     
 
         // GET: KabagController/Edit/5
         public ActionResult Edit(int id)

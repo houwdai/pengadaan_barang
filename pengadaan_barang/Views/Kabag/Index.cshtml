@@ -3,6 +3,7 @@
     <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 }
     @model IEnumerable<Client.Models.Pengadaan>
+        @*@model IEnumerable<Client.ViewModels.ViewModel>*@
 @{
     ViewData["Title"] = "Kabag | Homepage";
     Layout = "_LayoutKabag";
@@ -24,7 +25,7 @@
          <table id="dataTable" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th scope="col">No</th>
+                    <th scope="col">Id</th>
                     <th scope="col">Produk</th>
                     <th scope="col">Supplier</th>
                     <th scope="col">Kuantitas</th>
@@ -40,7 +41,6 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Id)
-
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.IdBarangNavigation.NamaProduk)
@@ -67,10 +67,11 @@
 
                         <td>
                             @if(item.IdStatus == 1){
-                            <a type="button" class="btn btn-info btn-sm" asp-action="EditSPB" asp-route-id="@item.Id">Edit</a>
+                                <a type="button" class="btn btn-info btn-sm" asp-action="EditSPB" asp-route-id="@item.Id">Edit</a>
+                                
                                 <a type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail">Details</a>
-
                                 <a type="button" class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#hapus">Delete</a>
+
                                 <!-- Modal Hapus Data -->
                                 <div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -96,6 +97,7 @@
                                     </div>
                                 </div>
                             }
+
                             @if (item.IdStatus != 1)
                             {
                                 <a type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#detail">Details</a>
@@ -218,7 +220,7 @@
     </div>
 </div>*@
 
-<!-- Modal Deatil-->
+<!-- Modal Detail-->
 <div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -238,7 +240,6 @@
     </div>
   </div>
 </div>
-
 
 @section Scripts{
 

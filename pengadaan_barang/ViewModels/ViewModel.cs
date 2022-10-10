@@ -8,8 +8,6 @@ namespace Client.ViewModels
     {
         public Product product { get; set; }
         public Pengadaan pengadaan { get; set; }
-
-        //public Cuti cuti { set; get; }
         public IEnumerable<SelectListItem> Satuan { get; set; }
         public IEnumerable<SelectListItem> Supplier  { get; set; }
         public IEnumerable<SelectListItem> Produck { get; set; }
