@@ -2,12 +2,13 @@
      <!-- Custom styles for this page -->
     <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 }
-    @model IEnumerable<Client.Models.Product>
+    @model IEnumerable<Client.Models.Supplier>
 @{
     ViewData["Title"] = "Kabag | Barang";
     Layout = "_LayoutKabag";
 
 }
+
 @section Sidebar{
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -23,7 +24,7 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active ">
+        <li class="nav-item ">
             <a class="nav-link" asp-action="Index">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span>
@@ -47,7 +48,7 @@
 
 
         <!-- Nav Item - Daftar Supplier -->
-        <li class="nav-item">
+        <li class="nav-item active">
             <a asp-action="Supplier" class="nav-link">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Supplier</span>
@@ -88,7 +89,7 @@
 
  <div class="card shadow mb-4" mt-4>
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Daftar Barang</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Daftar Nama Supplier</h6>
     </div>
     
         <!-- Button trigger modal insert gajadi, grgr dalam satu layout cuman bisa make 1 model aja -->
@@ -96,10 +97,10 @@
          Tambah Data Barang
         </button>*@
         <!-- Button trigger modal insert -->
-        <a asp-action="CreateBarang">
+        <a asp-action="CreateSupplier">
             <div>
             <button type="button" class="btn btn-primary ml-4 mt-2 mb-2">
-                Tambah Data Barang
+                Tambah Data Supplier
             </button>
             </div>
         </a>
@@ -110,11 +111,11 @@
             <thead>
                 <tr>
                      <th scope="col">No</th>
-                    <th scope="col">Barang</th>
-                    <th scope="col">Stock</th>
-                    <th scope="col">Satuan</th>
-                    <th scope="col">Harga</th>
-                    <th scope="col">Supplier</th>
+                    <th scope="col">Nama Supplier</th>
+                    <th scope="col">Alamat</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Nomor Telepon</th>
+                    <th scope="col">Kota</th>
                     <th scope="col">Action</th>
 
                 </tr>
@@ -128,31 +129,31 @@
 
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.NamaProduk)
+                            @Html.DisplayFor(modelItem => item.Nama)
                         </td>  
                          <td>
-                            @Html.DisplayFor(modelItem => item.StockProduct)
+                            @Html.DisplayFor(modelItem => item.Alamat)
                         </td>
                         
                         <td>
-                            @Html.DisplayFor(modelItem => item.IdSatuanNavigation.Nama)
+                           email@gmail.com
                         </td>  
                         <td>
-                            @Html.DisplayFor(modelItem => item.HargaProduct)
+                           08778
                         </td>
                          
                         <td>
-                            @Html.DisplayFor(modelItem => item.IdSupplierNavigation.Nama)
+                            @Html.DisplayFor(modelItem => item.Kota)
                         </td>
                         <td>
-                            <a type="button" class="btn btn-info btn-sm" asp-action="EditBarang" asp-route-id="@item.Id">Edit</a>
+                            <a type="button" class="btn btn-info btn-sm" asp-action="EditSPB" asp-route-id="@item.Id">Edit</a>
                             <a type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapus">Delete</a>
                             <!-- Modal Hapus Data -->
                             <div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Hapus Data Supplier</h5>
 
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
@@ -160,10 +161,10 @@
                                         </div>
                                         <form>
                                             <div class="modal-body">
-                                                <p>Apakah anda yakin ingin menghapus data ?</p>
+                                                <p>Apakah anda yakin ingin menghapus data supplier ?</p>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary" asp-action="DeleteBarang" asp-route-id="@item.Id">Yes</button>
+                                                <button type="submit" class="btn btn-primary" asp-action="DeleteSupplier" asp-route-id="@item.Id">Yes</button>
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             </div>
                                         </form>

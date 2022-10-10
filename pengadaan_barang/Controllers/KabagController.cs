@@ -120,8 +120,8 @@ namespace Client.Controllers
             if (ModelState.IsValid)
             {
                 var data = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
-
-                if (data != null)
+                
+            if (data != null)
                 {
                     //data.IdBarang = pengadaan.IdBarang;
                     data.IdSupplier = pengadaan.IdSupplier;
@@ -134,6 +134,7 @@ namespace Client.Controllers
             }
             return View();
         }
+
 
 
 
@@ -177,11 +178,97 @@ namespace Client.Controllers
             myContext.SaveChanges();
             return RedirectToAction("Barang");
         }
+
+
+       //---==== Supplier ====---
+        // GET: KabagController
+        public ActionResult Supplier()
+        {
+            var data = myContext.Supplier.ToList();
+
+            return View(data);
+        }
+        // GET: KabagController/CreateBarang
+        public ActionResult CreateSupplier()
+        {
+            return View();
+        }
+
+        // POST: KabagController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateSupplier(Supplier supplier)
+        {
+            if (ModelState.IsValid)
+            {
+                myContext.Supplier.Add(supplier);
+                var result = myContext.SaveChanges();
+                if (result > 0)
+                    return RedirectToAction("Supplier");
+            }
+            return View();
+
+        }
+        // GET: KabagController/DeleteSupllair
+
+        [HttpGet("Kabag/DeleteSupplier/{id:int}")]
+        public IActionResult DeleteSupplier(int id)
+        {
+            var delsup = myContext.Supplier.Where(a => a.Id == id).FirstOrDefault();
+            myContext.Supplier.Remove(delsup);
+            myContext.SaveChanges();
+            return RedirectToAction("Supplier");
+        }
+        
+        
+        //---==== Satuan ====---
+        // GET: KabagController
+        public ActionResult Satuan()
+        {
+            var data = myContext.Satuan.ToList();
+
+            return View(data);
+        }
+        // GET: KabagController/CreateSatuan
+        public ActionResult CreateSatuan()
+        {
+            return View();
+        }
+
+        // POST: KabagController/CreateSatuan
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateSatuan(Satuan satuan)
+        {
+            if (ModelState.IsValid)
+            {
+                myContext.Satuan.Add(satuan);
+                var result = myContext.SaveChanges();
+                if (result > 0)
+                    return RedirectToAction("Satuan");
+            }
+            return View();
+
+        }
+        // GET: KabagController/DeleteSatuan
+
+        [HttpGet("Kabag/DeleteSatuan/{id:int}")]
+        public IActionResult DeleteSatuan(int id)
+        {
+            var delsat = myContext.Satuan.Where(a => a.Id == id).FirstOrDefault();
+            myContext.Satuan.Remove(delsat);
+            myContext.SaveChanges();
+            return RedirectToAction("Satuan");
+        }
+
+
         // GET: KabagController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
+
+     
 
         // GET: KabagController/Edit/5
         public ActionResult Edit(int id)

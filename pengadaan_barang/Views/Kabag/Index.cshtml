@@ -9,7 +9,83 @@
     Layout = "_LayoutKabag";
 
 }
+@section Sidebar{
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">Pengadaan Barang</div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active ">
+            <a class="nav-link" asp-action="Index">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+
+        <!-- Nav Item - Daftar Barang -->
+        <li class="nav-item ">
+            <a asp-action="Barang" class="nav-link">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Barang</span>
+            </a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+
+        <!-- Nav Item - Daftar Supplier -->
+        <li class="nav-item">
+            <a asp-action="Supplier" class="nav-link">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Supplier</span>
+            </a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+
+        <!-- Nav Item - Daftar Satuan -->
+        <li class="nav-item">
+            <a asp-action="Satuan" class="nav-link">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Satuan</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Riwayat -->
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Riwayat</span>
+            </a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
+}
 <!-- Button trigger modal -->
 <a asp-action="CreateSPB">
     <button type="button" class="btn btn-primary ml-4 mt-2 mb-4">
