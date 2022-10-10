@@ -1,7 +1,7 @@
 ﻿@model Client.ViewModels.ViewModel
 
 @{
-    ViewData["Title"] = "Kabag | Edit Supplier";
+    ViewData["Title"] = "Kabag | Tambah Supplier";
     Layout = "_LayoutKabag";
 
 }
@@ -102,11 +102,11 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Edit Supplier</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Tammbah Daftar Supplier</h6>
         </div>
         <div class="container mt-4">
             <div class="form">
-                <form asp-action="CreateSupplier">
+                <form asp-action="EditSupplier">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group">
@@ -134,6 +134,7 @@
                         <input asp-for="@Model.supplier.Telepon" class="form-control" />
                         <span asp-validation-for="@Model.supplier.Telepon" class="text-danger"></span>
                     </div>
+                    
                     <div class="form-group row">
                         <div class="col">
                             <input type="submit" value="Save" class="btn btn-primary" />

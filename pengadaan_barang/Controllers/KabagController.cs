@@ -131,7 +131,6 @@ namespace Client.Controllers
                 
             if (data != null)
                 {
-                    //data.IdBarang = pengadaan.IdBarang;
                     data.IdSupplier = pengadaan.IdSupplier;
                     data.Kuantitas = pengadaan.Kuantitas;
                 }
@@ -146,7 +145,7 @@ namespace Client.Controllers
 
 
 
-        //---==== Barang ====---
+        //----------------------=================== Barang =========================-------------------------------------
         // GET: KabagController
         public ActionResult Barang()
         {
@@ -194,8 +193,60 @@ namespace Client.Controllers
             
         }
 
-        // GET: KabagController/DeleteBarang
+        //GET : KabagController/EditBarang/id
+        [HttpGet("Kabag/EditBarang/{id:int}")]
+        public IActionResult EditBarang(int id)
+        {
+            ViewModel viewModel = new ViewModel();
+            viewModel.product = myContext.Product.Where(a => a.Id == id).FirstOrDefault();
 
+            List<SelectListItem> satuan = myContext.Satuan
+                .OrderBy(n => n.Nama)
+                .Select(n => new SelectListItem
+                {
+                    Value = n.Id.ToString(),
+                    Text = n.Nama
+                }).ToList();
+            viewModel.Satuan = satuan;
+
+            List<SelectListItem> supplier = myContext.Supplier
+                .OrderBy(n => n.Nama)
+                .Select(n => new SelectListItem
+                {
+                    Value = n.Id.ToString(),
+                    Text = n.Nama
+                }).ToList();
+            viewModel.Supplier = supplier;
+
+            return View(viewModel);
+        }
+
+        //POST : KabagController/EditBarang/id
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditBarang(int id, Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                var data = myContext.Product.Where(a => a.Id == id).FirstOrDefault();
+
+                if (data != null)
+                {
+                    data.NamaProduk = product.NamaProduk;
+                    data.StockProduct = product.StockProduct;
+                    data.IdSatuan = product.IdSatuan;
+                    data.HargaProduct = product.HargaProduct;
+                    data.IdSupplier = product.IdSupplier;
+                }
+                myContext.Product.Update(data);
+                var result = myContext.SaveChanges();
+                if (result > 0)
+                    return RedirectToAction("Barang");
+            }
+            return View();
+        }
+
+        // GET: KabagController/DeleteBarang
         [HttpGet("Kabag/DeleteBarang/{id:int}")]
         public IActionResult DeleteBarang(int id)
         {
@@ -214,13 +265,13 @@ namespace Client.Controllers
 
             return View(data);
         }
-        // GET: KabagController/CreateBarang
+        // GET: KabagController/CreateSupplier
         public ActionResult CreateSupplier()
         {
             return View();
         }
 
-        // POST: KabagController/Create
+        // POST: KabagController/CreateSupplier
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateSupplier(Supplier supplier)
@@ -235,6 +286,43 @@ namespace Client.Controllers
             return View();
 
         }
+
+        //GET :KabagController/EditSupplier/id
+        [HttpGet("Kabag/EditSupplier/{id:int}")]
+        public IActionResult EditSupplier(int id)
+        {
+            ViewModel viewModel = new ViewModel();
+            viewModel.supplier = myContext.Supplier.Where(a => a.Id == id).FirstOrDefault();
+
+            return View(viewModel);
+        }
+
+        //POST : KabagController/EditSupplier/id
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditSupplier(int id, Supplier supplier)
+        {
+            if (ModelState.IsValid)
+            {
+                var data = myContext.Supplier.Where(a => a.Id == id).FirstOrDefault();
+
+                if (data != null)
+                {
+                    data.Nama = supplier.Nama;
+                    data.Alamat = supplier.Alamat;
+                    data.Kota = supplier.Kota;
+                    data.Email = supplier.Email;
+                    data.Telepon = supplier.Telepon;
+                }
+                myContext.Supplier.Update(data);
+                var result = myContext.SaveChanges();
+                if (result > 0)
+                    return RedirectToAction("Supplier");
+            }
+            return View();
+        }
+
+
         // GET: KabagController/DeleteSupllair
 
         [HttpGet("Kabag/DeleteSupplier/{id:int}")]

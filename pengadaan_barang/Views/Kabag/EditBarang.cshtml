@@ -1,7 +1,7 @@
 ﻿@model Client.ViewModels.ViewModel
 
 @{
-    ViewData["Title"] = "Kabag | Tambah Barang";
+    ViewData["Title"] = "Kabag | Edit Barang";
     Layout = "_LayoutKabag";
 
 }
@@ -33,7 +33,7 @@
 
 
         <!-- Nav Item - Daftar Barang -->
-        <li class="nav-item active ">
+        <li class="nav-item active">
             <a asp-action="Barang" class="nav-link">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Barang</span>
@@ -102,11 +102,11 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Tammbah Daftar Barang</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Edit Barang</h6>
     </div>
     <div class="container mt-4">
         <div class="form">
-            <form asp-action="CreateBarang">
+            <form asp-action="EditBarang">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div class="form-group">
@@ -117,7 +117,6 @@
                 <div class="form-group">
                     <label asp-for="@Model.product.IdSatuan" class="control-label">Satuan</label>
                     <select asp-for="@Model.product.IdSatuan" class="form-control" asp-items="@Model.Satuan"></select>
-                    @*<input asp-for="@Model.product.IdSatuan" class="form-control" />*@
                     <span asp-validation-for="@Model.product.IdSatuan" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -132,11 +131,11 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.product.IdSupplier" class="control-label"></label>
-                    @*<input asp-for="@Model.product.IdSupplier" class="form-control" />*@
                     <select asp-for="@Model.product.IdSupplier" class="form-control" asp-items="@Model.Supplier"></select>
                     <span asp-validation-for="@Model.product.IdSupplier" class="text-danger"></span>
                 </div>
-               <div class="form-group row">
+               
+                <div class="form-group row">
                     <div class="col">
                         <input type="submit" value="Save" class="btn btn-primary" />
                         <a asp-controller="Kabag" asp-action="barang"> <button type="button" class="btn btn-danger">Cancel</button>  </a>
