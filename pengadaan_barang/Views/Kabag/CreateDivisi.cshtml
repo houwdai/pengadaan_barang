@@ -1,12 +1,12 @@
-﻿@model Client.ViewModels.ViewModel
+﻿@model Client.Models.Divisi
 
 @{
-    ViewData["Title"] = "Kabag | Tambah Supplier";
+    ViewData["Title"] = "Kabag | Tambah Divisi";
     Layout = "_LayoutKabag";
 
 }
 
-    @section Sidebar{
+@section Sidebar{
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
@@ -45,7 +45,7 @@
 
 
         <!-- Nav Item - Daftar Supplier -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a asp-action="Supplier" class="nav-link">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Supplier</span>
@@ -57,7 +57,7 @@
 
 
         <!-- Nav Item - Daftar Satuan -->
-        <li class="nav-item">
+        <li class="nav-item ">
             <a asp-action="Satuan" class="nav-link">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Satuan</span>
@@ -69,7 +69,7 @@
 
 
         <!-- Nav Item - Daftar Divisi -->
-        <li class="nav-item">
+        <li class="nav-item active">
             <a asp-action="Divisi" class="nav-link">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Divisi</span>
@@ -102,37 +102,28 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Tammbah Daftar Supplier</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Tambah Divisi</h6>
         </div>
         <div class="container mt-4">
             <div class="form">
-                <form asp-action="CreateSupplier">
+                <form asp-action="CreateDivisi">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group">
-                        <label asp-for="@Model.supplier.Nama" class="control-label">Nama Supplier</label>
-                        <input asp-for="@Model.supplier.Nama" class="form-control" />
-                        <span asp-validation-for="@Model.supplier.Nama" class="text-danger"></span>
+                        <label asp-for="@Model.Nama" class="control-label">Nama Divisi</label>
+                        <input asp-for="@Model.Nama" class="form-control" />
+                        <span asp-validation-for="@Model.Nama" class="text-danger"></span>
                     </div>
+
                     <div class="form-group">
-                        <label asp-for="@Model.supplier.Alamat" class="control-label">Alamat Supplier</label>
-                        <input asp-for="@Model.supplier.Alamat" class="form-control" />
-                        <span asp-validation-for="@Model.supplier.Alamat" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="@Model.supplier.Kota" class="control-label"></label>
-                        <input asp-for="@Model.supplier.Kota" class="form-control" />
-                        <span asp-validation-for="@Model.supplier.Kota" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="CreateSupplier" class="btn btn-primary" />
+                        <input type="submit" value="Tambah Data Divisi" class="btn btn-primary" />
                     </div>
                 </form>
             </div>
         </div>
 
-        <div>
-            <a asp-action="Supplier">Back to List</a>
+        <div class="ml-4 mt-2">
+            <a asp-action="Divisi">Back to List</a>
         </div>
     </div>
 

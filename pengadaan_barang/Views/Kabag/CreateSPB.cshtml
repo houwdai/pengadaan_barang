@@ -66,6 +66,21 @@
             </a>
         </li>
 
+                <!-- Divider -->
+        <hr class="sidebar-divider">
+
+
+        <!-- Nav Item - Daftar Divisi -->
+        <li class="nav-item">
+            <a asp-action="Divisi" class="nav-link">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Divisi</span>
+            </a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
         <!-- Nav Item - Riwayat -->
         <li class="nav-item">
             <a class="nav-link" href="#">
@@ -106,9 +121,10 @@
                     </div>
                     <div class="form-group">
                         <label for="divisi"> Nama Divisi</label>
-                        <input asp-for="@Model.pengadaan.IdDivisi" type="text" disabled class="form-control" id="id" aria-describedby="emailHelp" asp-value="1">
+                    <select asp-for="@Model.pengadaan.IdDivisi" class="form-control" asp-items="@Model.Divisi"></select>
 
-                    </div>
+
+                </div>
                     <div class="form-group">
                         <label for="divisi"> Pilih Barang</label>
                         <select asp-for="@Model.pengadaan.IdBarang" class="form-control" asp-items="@Model.Produck"></select>

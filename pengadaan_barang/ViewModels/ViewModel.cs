@@ -13,6 +13,7 @@ namespace Client.ViewModels
         public IEnumerable<SelectListItem> Satuan { get; set; }
         public IEnumerable<SelectListItem> Supplier  { get; set; }
         public IEnumerable<SelectListItem> Produck { get; set; }
+        public IEnumerable<SelectListItem> Divisi { get; set; }
 
     }
 }

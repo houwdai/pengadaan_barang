@@ -1,10 +1,10 @@
 ﻿@section CSS{
-     <!-- Custom styles for this page -->
+    <!-- Custom styles for this page -->
     <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 }
-    @model IEnumerable<Client.Models.Supplier>
+    @model IEnumerable<Client.Models.Divisi>
 @{
-    ViewData["Title"] = "Kabag | Barang";
+    ViewData["Title"] = "Kabag | Divisi";
     Layout = "_LayoutKabag";
 
 }
@@ -48,7 +48,7 @@
 
 
         <!-- Nav Item - Daftar Supplier -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a asp-action="Supplier" class="nav-link">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Supplier</span>
@@ -60,18 +60,19 @@
 
 
         <!-- Nav Item - Daftar Satuan -->
-        <li class="nav-item">
+        <li class="nav-item ">
             <a asp-action="Satuan" class="nav-link">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Satuan</span>
             </a>
         </li>
+
         <!-- Divider -->
         <hr class="sidebar-divider">
 
 
         <!-- Nav Item - Daftar Divisi -->
-        <li class="nav-item">
+        <li class="nav-item active">
             <a asp-action="Divisi" class="nav-link">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Divisi</span>
@@ -80,6 +81,7 @@
 
         <!-- Divider -->
         <hr class="sidebar-divider">
+
 
         <!-- Nav Item - Riwayat -->
         <li class="nav-item">
@@ -101,40 +103,36 @@
     </ul>
 }
 
- <div class="card shadow mb-4" mt-4>
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Daftar Nama Supplier</h6>
-    </div>
-    
+    <div class="card shadow mb-4" mt-4>
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Daftar Nama Divisi</h6>
+        </div>
+
         <!-- Button trigger modal insert gajadi, grgr dalam satu layout cuman bisa make 1 model aja -->
-@*        <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#staticBackdrop">
-         Tambah Data Barang
-        </button>*@
+        @*        <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#staticBackdrop">
+    Tambah Data Barang
+    </button>*@
         <!-- Button trigger modal insert -->
-        <a asp-action="CreateSupplier">
+        <a asp-action="CreateDivisi">
             <div>
-            <button type="button" class="btn btn-primary ml-4 mt-2 mb-2">
-                Tambah Data Supplier
-            </button>
+                <button type="button" class="btn btn-primary ml-4 mt-2 mb-2">
+                    Tambah Divisi
+                </button>
             </div>
         </a>
 
 
-     <div class="card-body ">
-         <table  class="table table-bordered table-striped"  id="dataTable1">
-            <thead>
-                <tr>
-                     <th scope="col">No</th>
-                    <th scope="col">Nama Supplier</th>
-                    <th scope="col">Alamat</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Nomor Telepon</th>
-                    <th scope="col">Kota</th>
-                    <th scope="col">Action</th>
+        <div class="card-body ">
+            <table class="table table-bordered table-striped" id="dataTable1">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama Divisi</th>
+                        <th scope="col">Action</th>
 
-                </tr>
-            </thead>
-            <tbody >
+                    </tr>
+                </thead>
+                <tbody>
                 @foreach (var item in Model)
                 {
                     <tr>
@@ -144,30 +142,16 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Nama)
-                        </td>  
-                         <td>
-                            @Html.DisplayFor(modelItem => item.Alamat)
-                        </td>
-                        
-                        <td>
-                           email@gmail.com
-                        </td>  
-                        <td>
-                           08778
-                        </td>
-                         
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Kota)
                         </td>
                         <td>
-                            <a type="button" class="btn btn-info btn-sm" asp-action="EditSPB" asp-route-id="@item.Id">Edit</a>
+                            <a type="button" class="btn btn-info btn-sm" asp-action="EditDivisi" asp-route-id="@item.Id">Edit</a>
                             <a type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapus">Delete</a>
                             <!-- Modal Hapus Data -->
                             <div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Hapus Data Supplier</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
 
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
@@ -175,10 +159,10 @@
                                         </div>
                                         <form>
                                             <div class="modal-body">
-                                                <p>Apakah anda yakin ingin menghapus data supplier ?</p>
+                                                <p>Apakah anda yakin ingin menghapus data divisi?</p>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary" asp-action="DeleteSupplier" asp-route-id="@item.Id">Yes</button>
+                                                <button type="submit" class="btn btn-primary" asp-action="DeleteDivisi" asp-route-id="@item.Id">Yes</button>
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             </div>
                                         </form>
@@ -190,67 +174,16 @@
                     </tr>
                 }
             </tbody>
-           </table>
+        </table>
     </div>
-</div>
-
-<!-- Modal Insert Barang-->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Tambah Barang</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form method = "POST">
-          <div class="form-group">
-            <label for="id">ID Barang</label>
-            <input type="text" class="form-control" id="id_barang" disabled>
-          </div>
-          <div class="form-group">
-            <label for="nama_barang">Nama Barang</label>
-            <input type="text" class="form-control" id="nama_barang">
-          </div>
-           <div class="form-group">
-              <label for="satuan">Satuan</label>
-              <select id="satuan" class="form-control">
-                <option selected>pcs</option>
-                <option>rim</option>
-                <option>kodi</option>
-              </select>
-            </div>
-          <div class="form-group">
-            <label for="harga">Harga</label>
-            <input type="number" class="form-control" id="harga">
-          </div> 
-          <div class="form-group">
-            <label for="Supllier">Supplier</label>
-            <select id="id_supplier" class="form-control">
-                <option selected>PT. A</option>
-                <option>PT. B</option>
-                <option>PT. C</option>
-              </select>
-          </div>
-          <button type="submit" class="btn btn-primary" onclick = "insert()">Kirim</button>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-
-    </div>
-  </div>
 </div>
 
 @section Scripts{
 
-        <!-- Page level plugins -->
+    <!-- Page level plugins -->
     <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-        <!-- Page level custom scripts -->
+    <!-- Page level custom scripts -->
     <script src="~/js/demo/datatables-demo.js"></script>
 
 

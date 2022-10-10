@@ -56,6 +56,14 @@ namespace Client.Controllers
                     Text = n.Nama.ToString()
                 }).ToList();
             vm.Supplier = Supplier;
+                List<SelectListItem> Divisi = myContext.Divisi
+                .OrderBy(n => n.Nama)
+                .Select(n => new SelectListItem
+                {
+                    Value = n.Id.ToString(),
+                    Text = n.Nama.ToString()
+                }).ToList();
+            vm.Divisi = Divisi;
             return View(vm);
         }
 
@@ -170,7 +178,7 @@ namespace Client.Controllers
             return View(viewModel);
         }
 
-        // POST: KabagController/Create
+        // POST: KabagController/CreateBarang
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateBarang(Product product)
@@ -186,7 +194,7 @@ namespace Client.Controllers
             
         }
 
-        // GET: KabagController/DeleteSPB
+        // GET: KabagController/DeleteBarang
 
         [HttpGet("Kabag/DeleteBarang/{id:int}")]
         public IActionResult DeleteBarang(int id)
@@ -278,6 +286,61 @@ namespace Client.Controllers
             myContext.SaveChanges();
             return RedirectToAction("Satuan");
         }
+
+        //---==== Divisi ====---
+        // GET: KabagController
+        public ActionResult Divisi()
+        {
+            var data = myContext.Divisi.ToList();
+
+            return View(data);
+        }
+        // GET: KabagController/CreateDivisi
+        public ActionResult CreateDivisi()
+        {
+            return View();
+        }
+
+        // POST: KabagController/CreateDivisi
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateDivisi(Divisi divisi)
+        {
+            if (ModelState.IsValid)
+            {
+                myContext.Divisi.Add(divisi);
+                var result = myContext.SaveChanges();
+                if (result > 0)
+                    return RedirectToAction("Divisi");
+            }
+            return View();
+
+        }
+        // GET: KabagController/DeleteDivisi
+
+        [HttpGet("Kabag/DeleteDivisi/{id:int}")]
+        public IActionResult DeleteDivisi(int id)
+        {
+            var deldiv = myContext.Divisi.Where(a => a.Id == id).FirstOrDefault();
+            myContext.Divisi.Remove(deldiv);
+            myContext.SaveChanges();
+            return RedirectToAction("Divisi");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         // GET: KabagController/Details/5
