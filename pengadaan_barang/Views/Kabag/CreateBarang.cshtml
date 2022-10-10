@@ -101,8 +101,8 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.product.IdSatuan" class="control-label">Satuan</label>
-                    <select asp-for="@Model.product.IdSatuan" class="form-control" asp-items="@Model.Supplier"></select>
-                    <input asp-for="@Model.product.IdSatuan" class="form-control" />
+                    <select asp-for="@Model.product.IdSatuan" class="form-control" asp-items="@Model.Satuan"></select>
+                    @*<input asp-for="@Model.product.IdSatuan" class="form-control" />*@
                     <span asp-validation-for="@Model.product.IdSatuan" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -117,8 +117,8 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.product.IdSupplier" class="control-label"></label>
-                    <input asp-for="@Model.product.IdSupplier" class="form-control" />
-                    @*<select asp-for="@Model.product.IdSupplier" class="form-control" asp-items="@Model.Supplier"></select>*@
+                    @*<input asp-for="@Model.product.IdSupplier" class="form-control" />*@
+                    <select asp-for="@Model.product.IdSupplier" class="form-control" asp-items="@Model.Supplier"></select>
                     <span asp-validation-for="@Model.product.IdSupplier" class="text-danger"></span>
                 </div>
                 <div class="form-group">

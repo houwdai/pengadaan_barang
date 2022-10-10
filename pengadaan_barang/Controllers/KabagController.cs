@@ -149,7 +149,25 @@ namespace Client.Controllers
         // GET: KabagController/CreateBarang
         public ActionResult CreateBarang()
         {
-            return View();
+            ViewModel viewModel = new ViewModel();
+
+            List<SelectListItem> supplier = myContext.Supplier
+                .OrderBy(n => n.Nama)
+                .Select(n => new SelectListItem
+                {
+                    Value = n.Id.ToString(),
+                    Text = n.Nama
+                }).ToList();
+            viewModel.Supplier = supplier;
+            List<SelectListItem> satuan = myContext.Satuan
+                .OrderBy(n => n.Nama)
+                .Select(n => new SelectListItem
+                {
+                    Value = n.Id.ToString(),
+                    Text = n.Nama
+                }).ToList();
+            viewModel.Satuan = satuan;
+            return View(viewModel);
         }
 
         // POST: KabagController/Create
