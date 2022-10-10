@@ -1,15 +1,48 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Client.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Client.Controllers
 {
-    public class Manager : Controller
+    public class ManagerController : Controller
     {
+        DTSMiniProjectContext myContext;
+        public ManagerController(DTSMiniProjectContext myContext)
+        {
+            this.myContext = myContext;
+        }
         // GET: Manager
         public ActionResult Index()
         {
-            return View();
+            int status_waiting = 1;
+            var data = myContext.Pengadaan.Where(q => q.IdStatus == status_waiting).Include(z => z.IdBarangNavigation).
+                Include(x => x.IdSupplierNavigation).Include(y => y.IdDivisiNavigation).
+                Include(p => p.IdStatusNavigation).ToList();
+
+            return View(data);
         }
+        public ActionResult Terima(int id)
+        {
+
+            var spb = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
+            spb.IdStatus = 3;
+            myContext.Pengadaan.Update(spb);
+            myContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet("Tolak/{id:int}")]
+        public ActionResult Tolak(int id)
+        {
+            var spb = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
+            spb.IdStatus = 5;
+            myContext.Pengadaan.Update(spb);
+            myContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
 
         // GET: Manager/Details/5
         public ActionResult Details(int id)

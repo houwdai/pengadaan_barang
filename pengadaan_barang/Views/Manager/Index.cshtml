@@ -2,6 +2,8 @@
      <!-- Custom styles for this page -->
     <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 }
+    @model IEnumerable<Client.Models.Pengadaan>
+
 @{
     ViewData["Title"] = "Manager | Homepage";
     Layout = "_LayoutMan";
@@ -24,24 +26,40 @@
                     <th scope="col">Tindakan</th>
                 </tr>
             </thead>
-            <tbody >
-                <tr>
-                    <td scope="col">1</td>
-                    <td scope="col">Pulpen</td>
-                    <td scope="col">Lusin</td>
-                    <td scope="col">13000</td>
-                    <td scope="col">
-                        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#detail">
-                           Detail
-                        </button>
-                     </td>
-                    <td scope="col">
-                       @*  <a class="btn btn-primary" type="button" // asp-action="Terima" asp-route-id="@item.id">Terima</a>
-                        <a class="btn btn-primary" type="button"  asp-action="Tolak" asp-route-id="@item.id">Tolak</a>     *@ 
-                        <a class="btn btn-primary" type="button">Terima</a>
-                        <a class="btn btn-primary" type="button" >Tolak</a>    
-                    </td>
-                    
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PengaadanGuid)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdBarangNavigation.NamaProduk)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdSupplierNavigation.Nama)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Kuantitas)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Totals)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdDivisiNavigation.Nama)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdStatusNavigation.Name)
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" type="button" asp-action="Terima" asp-route-id="@item.Id">Terima</a>
+                            <a class="btn btn-primary" type="button" asp-action="Tolak" asp-route-id="@item.Id">Tolak</a>
+
+                        </td>
+                    </tr>
+                }
                 </tr>
             </tbody>
            </table>
