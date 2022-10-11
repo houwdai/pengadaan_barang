@@ -1,4 +1,5 @@
 ﻿using Client.Models;
+using Client.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +41,13 @@ namespace Client.Controllers
                 {
                     var spb = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
                     spb.IdStatus = 4;
+                    var idP = spb.IdBarang;
+                    var kuantitas = spb.Kuantitas;
+                    var product = myContext.Product.Where(a => a.Id == idP).FirstOrDefault();
+                    var stock = product.StockProduct;
+                    var stockupdate = kuantitas + stock;
+                    product.StockProduct = stockupdate;
+                    myContext.Product.Update(product);
                     myContext.Pengadaan.Update(spb);
                     myContext.SaveChanges();
                     return RedirectToAction("Index");
@@ -58,14 +66,6 @@ namespace Client.Controllers
                 {
                     var spb = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
                     spb.IdStatus = 5;
-                    var idP = spb.IdBarang;
-                    var kuantitas = spb.Kuantitas;
-                    var product = myContext.Product.Where(a => a.Id == idP).FirstOrDefault();
-                    var stock = product.StockProduct;
-                    var stockupdate = kuantitas + stock;
-                    product.StockProduct = stockupdate;
-                    myContext.Product.Update(product);
-
                     myContext.Pengadaan.Update(spb);
                     myContext.SaveChanges();
                     return RedirectToAction("Index");
@@ -90,6 +90,80 @@ namespace Client.Controllers
                 }
             }
             return RedirectToAction("Unauthorized", "ErrorPage");
+        }
+
+        //---==== Divisi ====---
+        // GET: Mankeu Controller
+        public ActionResult Divisi()
+        {
+            var data = myContext.Divisi.ToList();
+
+            return View(data);
+        }
+        // GET: MankeuController/CreateDivisi
+        public ActionResult CreateDivisi()
+        {
+            return View();
+        }
+
+        // POST: MankeuController/CreateDivisi
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateDivisi(Divisi divisi)
+        {
+            if (ModelState.IsValid)
+            {
+                myContext.Divisi.Add(divisi);
+                var result = myContext.SaveChanges();
+                if (result > 0)
+                    return RedirectToAction("Divisi");
+            }
+            return View();
+
+        }
+        // GET: MankeuController/DeleteDivisi
+
+        [HttpGet("Mankeu/DeleteDivisi/{id:int}")]
+        public IActionResult DeleteDivisi(int id)
+        {
+            var deldiv = myContext.Divisi.Where(a => a.Id == id).FirstOrDefault();
+            myContext.Divisi.Remove(deldiv);
+            myContext.SaveChanges();
+            return RedirectToAction("Divisi");
+        }
+
+
+        //GET :MankeuController/EditDivisi/id
+        [HttpGet("Mankeu/EditDivisi/{id:int}")]
+        public IActionResult EditDivisi(int id)
+        {
+            ViewModel viewModel = new ViewModel();
+            viewModel.divisi = myContext.Divisi.Where(a => a.Id == id).FirstOrDefault();
+
+            return View(viewModel);
+        }
+
+        //POST : MankeuController/EditDivisi/id
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditDivisi(int id, Divisi divisi)
+        {
+            if (ModelState.IsValid)
+            {
+                var data = myContext.Divisi.Where(a => a.Id == id).FirstOrDefault();
+
+                if (data != null)
+                {
+                    data.Nama = divisi.Nama;
+                    data.AnggaraanTetap = divisi.AnggaraanTetap;
+
+                }
+                myContext.Divisi.Update(data);
+                var result = myContext.SaveChanges();
+                if (result > 0)
+                    return RedirectToAction("Divisi");
+            }
+            return View();
         }
     }
 }
