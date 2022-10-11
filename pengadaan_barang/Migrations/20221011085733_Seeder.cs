@@ -2,7 +2,7 @@
 
 namespace Client.Migrations
 {
-    public partial class UpdateDbClient : Migration
+    public partial class Seeder : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,25 +12,26 @@ namespace Client.Migrations
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    nama = table.Column<string>(unicode: false, maxLength: 20, nullable: true)
+                    nama = table.Column<string>(unicode: false, maxLength: 20, nullable: true),
+                    AnggaraanTetap = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_divisi", x => x.id);
                 });
 
-            //migrationBuilder.CreateTable(
-            //    name: "role",
-            //    columns: table => new
-            //    {
-            //        id = table.Column<int>(nullable: false)
-            //            .Annotation("SqlServer:Identity", "1, 1"),
-            //        name = table.Column<string>(unicode: false, maxLength: 20, nullable: true)
-            //    },
-            //    constraints: table =>
-            //    {
-            //        table.PrimaryKey("PK_role", x => x.id);
-            //    });
+            migrationBuilder.CreateTable(
+                name: "role",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(unicode: false, maxLength: 80, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_role", x => x.id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "satuan",
@@ -38,7 +39,7 @@ namespace Client.Migrations
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    nama = table.Column<string>(unicode: false, maxLength: 20, nullable: true)
+                    nama = table.Column<string>(unicode: false, maxLength: 70, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -51,7 +52,7 @@ namespace Client.Migrations
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(unicode: false, maxLength: 20, nullable: true)
+                    name = table.Column<string>(unicode: false, maxLength: 70, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -66,7 +67,9 @@ namespace Client.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     nama = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
                     alamat = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
-                    kota = table.Column<string>(unicode: false, maxLength: 100, nullable: true)
+                    kota = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Telepon = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -143,6 +146,28 @@ namespace Client.Migrations
                         principalTable: "supplier",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "satuan",
+                columns: new[] { "id", "nama" },
+                values: new object[,]
+                {
+                    { 1, "Pack" },
+                    { 2, "Pcs" },
+                    { 3, "Lusin" },
+                    { 4, "Set" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "status",
+                columns: new[] { "id", "name" },
+                values: new object[,]
+                {
+                    { 1, "Awaiting" },
+                    { 2, "Accepted by Manajer Bagian" },
+                    { 3, "Accepted by Manajer Keuangan" },
+                    { 4, "Reject" }
                 });
 
             migrationBuilder.CreateIndex(

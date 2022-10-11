@@ -2,33 +2,17 @@
 
 namespace API.Migrations
 {
-    public partial class initial : Migration
+    public partial class Seeder : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Catalog",
-                columns: table => new
-                {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    namaBarang = table.Column<string>(nullable: true),
-                    satuan = table.Column<int>(nullable: false),
-                    harga = table.Column<int>(nullable: false),
-                    supplier = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Catalog", x => x.id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Role",
                 columns: table => new
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(nullable: true)
+                    name = table.Column<string>(unicode: false, maxLength: 80, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,6 +41,21 @@ namespace API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Role",
+                columns: new[] { "id", "name" },
+                values: new object[] { 1, "Kepala Bagian Produksi" });
+
+            migrationBuilder.InsertData(
+                table: "Role",
+                columns: new[] { "id", "name" },
+                values: new object[] { 2, "Manager" });
+
+            migrationBuilder.InsertData(
+                table: "Role",
+                columns: new[] { "id", "name" },
+                values: new object[] { 3, "Mankeu" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_User_RoleId",
                 table: "User",
@@ -65,9 +64,6 @@ namespace API.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Catalog");
-
             migrationBuilder.DropTable(
                 name: "User");
 

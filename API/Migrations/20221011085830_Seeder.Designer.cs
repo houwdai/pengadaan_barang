@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20221007160821_initial")]
-    partial class initial
+    [Migration("20221011085830_Seeder")]
+    partial class Seeder
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,43 +20,40 @@ namespace API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("API.Models.Catalog", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("harga")
-                        .HasColumnType("int");
-
-                    b.Property<string>("namaBarang")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("satuan")
-                        .HasColumnType("int");
-
-                    b.Property<string>("supplier")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Catalog");
-                });
-
             modelBuilder.Entity("API.Models.Role", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("id")
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("name")
+                        .HasColumnType("varchar(80)")
+                        .HasMaxLength(80)
+                        .IsUnicode(false);
 
                     b.HasKey("id");
 
                     b.ToTable("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            name = "Kepala Bagian Produksi"
+                        },
+                        new
+                        {
+                            id = 2,
+                            name = "Manager"
+                        },
+                        new
+                        {
+                            id = 3,
+                            name = "Mankeu"
+                        });
                 });
 
             modelBuilder.Entity("API.Models.User", b =>

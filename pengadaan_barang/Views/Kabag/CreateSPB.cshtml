@@ -142,8 +142,12 @@
                         <input asp-for="@Model.pengadaan.IdStatus" type="hidden" value="1" class="form-control" id="id" aria-describedby="emailHelp">
                     </div>
 
-
-                    <button type="submit" class="btn btn-primary" value="CreateData">Submit</button>
+                    <div class="form-group row">
+                        <div class="col">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                            <a asp-controller="Kabag" asp-action="Index"> <button type="button" class="btn btn-danger">Cancel</button>  </a>
+                        </div>
+                    </div>
                 </form>
     </div>
 </div>

@@ -150,23 +150,6 @@ namespace Client.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("role");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Kepala Bagian Produksi"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Manager"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Mankeu"
-                        });
                 });
 
             modelBuilder.Entity("Client.Models.Satuan", b =>

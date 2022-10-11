@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Client.Migrations
 {
     [DbContext(typeof(DTSMiniProjectContext))]
-    [Migration("20221010141824_addingPropertyToSupplier")]
-    partial class addingPropertyToSupplier
+    [Migration("20221011085733_Seeder")]
+    partial class Seeder
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,6 +28,9 @@ namespace Client.Migrations
                         .HasColumnName("id")
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AnggaraanTetap")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nama")
                         .HasColumnName("nama")
@@ -142,8 +145,8 @@ namespace Client.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnName("name")
-                        .HasColumnType("varchar(20)")
-                        .HasMaxLength(20)
+                        .HasColumnType("varchar(80)")
+                        .HasMaxLength(80)
                         .IsUnicode(false);
 
                     b.HasKey("Id");
@@ -161,13 +164,35 @@ namespace Client.Migrations
 
                     b.Property<string>("Nama")
                         .HasColumnName("nama")
-                        .HasColumnType("varchar(20)")
-                        .HasMaxLength(20)
+                        .HasColumnType("varchar(70)")
+                        .HasMaxLength(70)
                         .IsUnicode(false);
 
                     b.HasKey("Id");
 
                     b.ToTable("satuan");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nama = "Pack"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nama = "Pcs"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nama = "Lusin"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Nama = "Set"
+                        });
                 });
 
             modelBuilder.Entity("Client.Models.Status", b =>
@@ -180,13 +205,35 @@ namespace Client.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnName("name")
-                        .HasColumnType("varchar(20)")
-                        .HasMaxLength(20)
+                        .HasColumnType("varchar(70)")
+                        .HasMaxLength(70)
                         .IsUnicode(false);
 
                     b.HasKey("Id");
 
                     b.ToTable("status");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Awaiting"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Accepted by Manajer Bagian"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Accepted by Manajer Keuangan"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Reject"
+                        });
                 });
 
             modelBuilder.Entity("Client.Models.Supplier", b =>

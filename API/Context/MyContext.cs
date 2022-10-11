@@ -11,16 +11,22 @@ namespace API.Context
 
         }
 
-        public DbSet<Role> Role { get; set; }
+        public virtual DbSet<Divisi> Divisi { get; set; }
+        public virtual DbSet<Pengadaan> Pengadaan { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<Satuan> Satuan { get; set; }
+        public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<Supplier> Supplier { get; set; }
         public DbSet<User> User { get; set; }
-        public DbSet<Catalog> Catalog { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
                 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 //optionsBuilder.UseSqlServer("Data Source=desktop-3eq7s2p;Initial Catalog=DTSMiniProject;Integrated Security=True");
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-GK9TR5F;Initial Catalog=DTSMiniProject;User ID=mccdts1;Password=mccdts;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-GK9TR5F;Initial Catalog=DTSMiniProject_2;User ID=mccdts1;Password=mccdts;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;");
             }
         }
 
@@ -31,7 +37,7 @@ namespace API.Context
           
             modelBuilder.Entity<Role>(entity =>
             {
-                entity.ToTable("role");
+                entity.ToTable("Role");
 
                 entity.Property(e => e.id).HasColumnName("id");
 
