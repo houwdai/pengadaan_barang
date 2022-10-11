@@ -4,14 +4,16 @@ using Client.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Client.Migrations
 {
     [DbContext(typeof(DTSMiniProjectContext))]
-    partial class DTSMiniProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20221011031639_updt-div")]
+    partial class updtdiv
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

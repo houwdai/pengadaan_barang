@@ -4,14 +4,16 @@ using Client.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Client.Migrations
 {
     [DbContext(typeof(DTSMiniProjectContext))]
-    partial class DTSMiniProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20221010160106_updtdb")]
+    partial class updtdb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,9 +28,6 @@ namespace Client.Migrations
                         .HasColumnName("id")
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AnggaraanTetap")
-                        .HasColumnType("int");
 
                     b.Property<string>("Nama")
                         .HasColumnName("nama")

@@ -1,0 +1,46 @@
+﻿@model Client.ViewModels.ViewModel
+
+@{
+    ViewData["Title"] = "Manajer Keuangan | Edit Divisi";
+    Layout = "_LayoutMankeu";
+
+}
+
+  
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Tammbah Daftar Supplier</h6>
+        </div>
+        <div class="container mt-4">
+            <div class="form">
+            <form asp-action="EditDivisi">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="@Model.divisi.Nama" class="control-label">Nama Divisi</label>
+                    <input asp-for="@Model.divisi.Nama" class="form-control" />
+                    <span asp-validation-for="@Model.divisi.Nama" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.divisi.AnggaraanTetap" class="control-label">Anggaran Tetap</label>
+                    <input asp-for="@Model.divisi.AnggaraanTetap" class="form-control" />
+                    <span asp-validation-for="@Model.divisi.AnggaraanTetap" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                            <a asp-action="Divisi" button type="button" class="btn btn-danger">Cancel</button>  </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

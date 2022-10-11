@@ -10,6 +10,7 @@ namespace Client.ViewModels
         public Pengadaan pengadaan { get; set; }
         public Supplier supplier { get; set; }
         public Satuan satuan { get; set; }
+        public Divisi divisi {get; set; }
         public IEnumerable<SelectListItem> Satuan { get; set; }
         public IEnumerable<SelectListItem> Supplier  { get; set; }
         public IEnumerable<SelectListItem> Produck { get; set; }

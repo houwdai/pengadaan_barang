@@ -16,6 +16,8 @@ namespace Client.Models
 
         public int Id { get; set; }
         public string Nama { get; set; }
+        public int AnggaraanTetap { get; set; }
+
 
         public virtual ICollection<Pengadaan> Pengadaan { get; set; }
     }

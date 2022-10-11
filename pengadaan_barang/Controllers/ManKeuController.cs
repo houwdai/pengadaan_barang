@@ -58,6 +58,14 @@ namespace Client.Controllers
                 {
                     var spb = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
                     spb.IdStatus = 5;
+                    var idP = spb.IdBarang;
+                    var kuantitas = spb.Kuantitas;
+                    var product = myContext.Product.Where(a => a.Id == idP).FirstOrDefault();
+                    var stock = product.StockProduct;
+                    var stockupdate = kuantitas + stock;
+                    product.StockProduct = stockupdate;
+                    myContext.Product.Update(product);
+
                     myContext.Pengadaan.Update(spb);
                     myContext.SaveChanges();
                     return RedirectToAction("Index");

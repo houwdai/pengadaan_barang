@@ -1,0 +1,139 @@
+﻿@model Client.Models.Divisi
+
+@{
+    ViewData["Title"] = "Manager Keuangan| Tambah Divisi";
+    Layout = "_LayoutMankeu";
+
+}
+
+@*@section Sidebar{
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">Pengadaan Barang</div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item  ">
+            <a class="nav-link" asp-action="Index">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+
+        <!-- Nav Item - Daftar Barang -->
+        <li class="nav-item ">
+            <a asp-action="Barang" class="nav-link">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Barang</span>
+            </a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+
+        <!-- Nav Item - Daftar Supplier -->
+        <li class="nav-item">
+            <a asp-action="Supplier" class="nav-link">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Supplier</span>
+            </a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+
+        <!-- Nav Item - Daftar Satuan -->
+        <li class="nav-item ">
+            <a asp-action="Satuan" class="nav-link">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Satuan</span>
+            </a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+
+        <!-- Nav Item - Daftar Divisi -->
+        <li class="nav-item active">
+            <a asp-action="Divisi" class="nav-link">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Divisi</span>
+            </a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Nav Item - Riwayat -->
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Riwayat</span>
+            </a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
+}*@
+
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Tambah Divisi</h6>
+        </div>
+        <div class="container mt-4">
+            <div class="form">
+                <form asp-action="CreateDivisi">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="@Model.Nama" class="control-label">Nama Divisi</label>
+                        <input asp-for="@Model.Nama" class="form-control" />
+                        <span asp-validation-for="@Model.Nama" class="text-danger"></span>
+                    </div> <div class="form-group">
+                        <label asp-for="@Model.AnggaraanTetap" class="control-label">Anggaran Tetap</label>
+                        <input asp-for="@Model.AnggaraanTetap" class="form-control" />
+                        <span asp-validation-for="@Model.AnggaraanTetap" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Tambah Data Divisi" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="ml-4 mt-2 mb-4">
+            <a asp-action="Divisi">Back to List</a>
+        </div>
+    </div>
+
+
+    @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
