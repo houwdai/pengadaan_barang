@@ -132,10 +132,10 @@ namespace Client.Models
 
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
-                    .HasMaxLength(20)
+                    .HasMaxLength(80)
                     .IsUnicode(false);
             });
-
+            
             modelBuilder.Entity<Satuan>(entity =>
             {
                 entity.ToTable("satuan");
@@ -144,9 +144,15 @@ namespace Client.Models
 
                 entity.Property(e => e.Nama)
                     .HasColumnName("nama")
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(70)
+                    .IsUnicode(false);                
             });
+            modelBuilder.Entity<Satuan>().HasData(
+             new Satuan { Id = 1, Nama = "Pack" },
+             new Satuan { Id = 2, Nama = "Pcs" },
+             new Satuan { Id = 3, Nama = "Lusin" },
+             new Satuan { Id = 4, Nama = "Set" }
+         );
 
             modelBuilder.Entity<Status>(entity =>
             {
@@ -156,9 +162,15 @@ namespace Client.Models
 
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
-                    .HasMaxLength(20)
+                    .HasMaxLength(70)
                     .IsUnicode(false);
             });
+            modelBuilder.Entity<Status>().HasData(
+             new Status { Id = 1, Name = "Awaiting" },
+             new Status { Id = 2, Name = "Accepted by Manajer Bagian" },
+             new Status { Id = 3, Name = "Accepted by Manajer Keuangan" },
+             new Status { Id = 4, Name = "Reject" }
+         );
 
             modelBuilder.Entity<Supplier>(entity =>
             {

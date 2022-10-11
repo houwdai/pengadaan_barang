@@ -21,7 +21,7 @@ namespace Client.Controllers
             {
                 if (role.Equals("ManKeu"))
                 {
-                    int status_waiting = 3;
+                    int status_waiting = 2;
                     var data = myContext.Pengadaan.Where(q => q.IdStatus == status_waiting).Include(z => z.IdBarangNavigation).
                         Include(x => x.IdSupplierNavigation).Include(y => y.IdDivisiNavigation).
                         Include(p => p.IdStatusNavigation).ToList();
@@ -40,7 +40,7 @@ namespace Client.Controllers
                 if (role.Equals("ManKeu"))
                 {
                     var spb = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
-                    spb.IdStatus = 4;
+                    spb.IdStatus = 3;
                     var idP = spb.IdBarang;
                     var kuantitas = spb.Kuantitas;
                     var product = myContext.Product.Where(a => a.Id == idP).FirstOrDefault();
@@ -65,7 +65,7 @@ namespace Client.Controllers
                 if (role.Equals("ManKeu"))
                 {
                     var spb = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
-                    spb.IdStatus = 5;
+                    spb.IdStatus = 4;
                     myContext.Pengadaan.Update(spb);
                     myContext.SaveChanges();
                     return RedirectToAction("Index");

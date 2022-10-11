@@ -46,15 +46,36 @@ namespace API.Migrations
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("id")
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("name")
+                        .HasColumnType("varchar(80)")
+                        .HasMaxLength(80)
+                        .IsUnicode(false);
 
                     b.HasKey("id");
 
-                    b.ToTable("Role");
+                    b.ToTable("role");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            name = "Kepala Bagian Produksi"
+                        },
+                        new
+                        {
+                            id = 2,
+                            name = "Manager"
+                        },
+                        new
+                        {
+                            id = 3,
+                            name = "Mankeu"
+                        });
                 });
 
             modelBuilder.Entity("API.Models.User", b =>
