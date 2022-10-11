@@ -16,42 +16,73 @@ namespace Client.Controllers
         // GET: Manager
         public ActionResult Index()
         {
-            int status_waiting = 1;
-            var data = myContext.Pengadaan.Where(q => q.IdStatus == status_waiting).Include(z => z.IdBarangNavigation).
-                Include(x => x.IdSupplierNavigation).Include(y => y.IdDivisiNavigation).
-                Include(p => p.IdStatusNavigation).ToList();
+            var role = HttpContext.Session.GetString("Role");
+            if (role != null)
+            {
+                if (role.Equals("Manager"))
+                {
+                    int status_waiting = 1;
+                    var data = myContext.Pengadaan.Where(q => q.IdStatus == status_waiting).Include(z => z.IdBarangNavigation).
+                        Include(x => x.IdSupplierNavigation).Include(y => y.IdDivisiNavigation).
+                        Include(p => p.IdStatusNavigation).ToList();
 
-            return View(data);
+                    return View(data);
+                }
+            }
+            return RedirectToAction("Unauthorized", "ErrorPage");
         }
         public ActionResult Terima(int id)
         {
-
-            var spb = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
-            spb.IdStatus = 3;
-            myContext.Pengadaan.Update(spb);
-            myContext.SaveChanges();
-            return RedirectToAction("Index");
+            var role = HttpContext.Session.GetString("Role");
+            if (role != null)
+            {
+                if (role.Equals("Manager"))
+                {
+                    var spb = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
+                    spb.IdStatus = 3;
+                    myContext.Pengadaan.Update(spb);
+                    myContext.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Unauthorized", "ErrorPage");
         }
 
         [HttpGet("Tolakk/{id:int}")]
         public ActionResult Tolakk(int id)
         {
-            var spb = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
-            spb.IdStatus = 5;
-            myContext.Pengadaan.Update(spb);
-            myContext.SaveChanges();
-            return RedirectToAction("Index");
+            var role = HttpContext.Session.GetString("Role");
+            if (role != null)
+            {
+                if (role.Equals("Manager"))
+                {
+                    var spb = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
+                    spb.IdStatus = 5;
+                    myContext.Pengadaan.Update(spb);
+                    myContext.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Unauthorized", "ErrorPage");
         }
 
         // GET: Manager
         public ActionResult Riwayat()
         {
-            int status_waiting = 1;
-            var data = myContext.Pengadaan.Where(q => q.IdStatus != status_waiting).Include(z => z.IdBarangNavigation).
-                Include(x => x.IdSupplierNavigation).Include(y => y.IdDivisiNavigation).
-                Include(p => p.IdStatusNavigation).ToList();
+            var role = HttpContext.Session.GetString("Role");
+            if (role != null)
+            {
+                if (role.Equals("Manager"))
+                {
+                    int status_waiting = 1;
+                    var data = myContext.Pengadaan.Where(q => q.IdStatus != status_waiting).Include(z => z.IdBarangNavigation).
+                    Include(x => x.IdSupplierNavigation).Include(y => y.IdDivisiNavigation).
+                    Include(p => p.IdStatusNavigation).ToList();
 
-            return View(data);
+                    return View(data);
+                }
+            }
+            return RedirectToAction("Unauthorized", "ErrorPage");
         }
 
         // GET: Manager/Details/5

@@ -1,4 +1,5 @@
 ﻿using Client.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -14,43 +15,73 @@ namespace Client.Controllers
         }
         public IActionResult Index()
         {
-            int status_waiting = 3;
-            var data = myContext.Pengadaan.Where(q => q.IdStatus == status_waiting).Include(z => z.IdBarangNavigation).
-                Include(x => x.IdSupplierNavigation).Include(y => y.IdDivisiNavigation).
-                Include(p => p.IdStatusNavigation ).ToList();
+            var role = HttpContext.Session.GetString("Role");
+            if (role != null)
+            {
+                if (role.Equals("ManKeu"))
+                {
+                    int status_waiting = 3;
+                    var data = myContext.Pengadaan.Where(q => q.IdStatus == status_waiting).Include(z => z.IdBarangNavigation).
+                        Include(x => x.IdSupplierNavigation).Include(y => y.IdDivisiNavigation).
+                        Include(p => p.IdStatusNavigation).ToList();
 
-            return View(data);
+                    return View(data);
+                }
+            }
+            return RedirectToAction("Unauthorized", "ErrorPage");
         }
+
         public ActionResult Terima(int id)
         {
-
-            var spb = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
-            spb.IdStatus = 4;
-            myContext.Pengadaan.Update(spb);
-            myContext.SaveChanges();
-            return RedirectToAction("Index");
+            var role = HttpContext.Session.GetString("Role");
+            if (role != null)
+            {
+                if (role.Equals("ManKeu"))
+                {
+                    var spb = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
+                    spb.IdStatus = 4;
+                    myContext.Pengadaan.Update(spb);
+                    myContext.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Unauthorized", "ErrorPage");
         }
 
         [HttpGet("Tolak/{id:int}")]
         public ActionResult Tolak(int id)
         {
-
-            var spb = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
-            spb.IdStatus = 5;
-            myContext.Pengadaan.Update(spb);
-            myContext.SaveChanges();
-            return RedirectToAction("Index");
+            var role = HttpContext.Session.GetString("Role");
+            if (role != null)
+            {
+                if (role.Equals("ManKeu"))
+                {
+                    var spb = myContext.Pengadaan.Where(a => a.Id == id).FirstOrDefault();
+                    spb.IdStatus = 5;
+                    myContext.Pengadaan.Update(spb);
+                    myContext.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Unauthorized", "ErrorPage");
         }
 
         public IActionResult Riwayat()
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (role != null)
+            {
+                if (role.Equals("ManKeu"))
+                {
+                    int status_waiting = 4;
+                    var data = myContext.Pengadaan.Where(q => q.IdStatus == status_waiting).Include(z => z.IdBarangNavigation).
+                        Include(x => x.IdSupplierNavigation).Include(y => y.IdDivisiNavigation).
+                        Include(p => p.IdStatusNavigation).ToList();
 
-            int status_waiting = 4;
-            var data = myContext.Pengadaan.Where(q => q.IdStatus == status_waiting).Include(z => z.IdBarangNavigation).
-                Include(x => x.IdSupplierNavigation).Include(y => y.IdDivisiNavigation).
-                Include(p => p.IdStatusNavigation).ToList();
-
-            return View(data);
+                    return View(data);
+                }
+            }
+            return RedirectToAction("Unauthorized", "ErrorPage");
         }
     }
 }

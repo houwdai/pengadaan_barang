@@ -1,5 +1,6 @@
 ﻿using Client.Models;
 using Client.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,15 +25,18 @@ namespace Client.Controllers
         public ActionResult Index()
         {
             var role = HttpContext.Session.GetString("Role");
-            if (role.Equals("Kepala Bagian Produksi"))
+            if (role != null)
             {
-                var data = myContext.Pengadaan.Include(x => x.IdSupplierNavigation).
-                    Include(y => y.IdBarangNavigation).
-                    Include(z => z.IdStatusNavigation).
-                    Include(p => p.IdDivisiNavigation)
-                    .ToList();
+                if (role.Equals("Kepala Bagian Produksi"))
+                {
+                    var data = myContext.Pengadaan.Include(x => x.IdSupplierNavigation).
+                        Include(y => y.IdBarangNavigation).
+                        Include(z => z.IdStatusNavigation).
+                        Include(p => p.IdDivisiNavigation)
+                        .ToList();
 
-                return View(data);
+                    return View(data);
+                }
             }
             return RedirectToAction("Unauthorized", "ErrorPage");
         }
@@ -415,29 +419,11 @@ namespace Client.Controllers
             return RedirectToAction("Divisi");
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // GET: KabagController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
-
-     
 
         // GET: KabagController/Edit/5
         public ActionResult Edit(int id)

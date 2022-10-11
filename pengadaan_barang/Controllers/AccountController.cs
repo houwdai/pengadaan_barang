@@ -41,16 +41,25 @@ namespace Client.Controllers
                 {
                     var data = JsonConvert.DeserializeObject<ResponseClient>(await result.Content.ReadAsStringAsync());
                     HttpContext.Session.SetString("Role", data.data.role);
-                    
-                    if (HttpContext.Session.GetString("Role").Equals("Kepala Bagian Produksi"))
-                        return RedirectToAction("Index", "Kabag");
-                    else if (HttpContext.Session.GetString("Role").Equals("Manajer Finance"))
-                        return RedirectToAction("Index", "ManKeu");
-                    else if (HttpContext.Session.GetString("Role").Equals("Manajer Produksi"))
-                        return RedirectToAction("Index", "Manager");
+
+                if (HttpContext.Session.GetString("Role").Equals("Kepala Bagian Produksi"))
+                    return RedirectToAction("Index", "Kabag");
+                else if (HttpContext.Session.GetString("Role").Equals("ManKeu"))
+                    return RedirectToAction("Index", "ManKeu");
+                else if (HttpContext.Session.GetString("Role").Equals("Manager"))
+                    return RedirectToAction("Index", "Manager");
+                else
+                    return RedirectToAction("Unauthorized", "ErrorPage");
             }
                 return View();
             }
+
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Login");
+        }
 
             public IActionResult Register()
             {
